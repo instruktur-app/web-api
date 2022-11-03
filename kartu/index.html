@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FE 08</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sharer.js@latest/sharer.min.js"></script>
+  </head>
+  <body>
+    <nav style="height: 100vh; padding: 1rem; width: 200px">
+      <a href="/kartu">Clear Message</a>
+      <button
+        id="tw"
+        class="button tw"
+        data-sharer="twitter"
+        data-hashtags="KedokteranRuangGuru #Card"
+      >
+        Share on Twitter
+      </button>
+    </nav>
+    <div id="output"></div>
+    <div class="card">
+      <div class="outside" id="cover">
+        <div class="front">
+          <p>FE 08</p>
+          <div class="avatar">
+            <img
+              src="https://raw.githubusercontent.com/asruldev/kartu/master/assets/1.svg"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="inside" id="card">
+        <p contenteditable="true" id="msg">Double klik to write message</p>
+      </div>
+    </div>
+    <script>
+        // isi variable dengan get berdasarkan id
+      var btn = 
+      var node = 
+      var cover = 
+
+      document.getElementById("cover").addEventListener("click", function () {
+        // Buat transform rotateY -130deg untuk class cover
+        // Buat rotasi 0deg untuk class node
+      });
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var msg = document.getElementById("msg");
+      if (urlParams.get("m")) {
+        // isi message dengan url params m
+      }
+
+      var tw = document.getElementById("tw");
+      msg.addEventListener("keyup", function () {
+        tw.setAttribute("data-title", "FE 08");
+        tw.setAttribute(
+          "data-url",
+          // alamat share
+        );
+      });
+    </script>
+  </body>
+</html>
