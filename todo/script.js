@@ -1,11 +1,11 @@
-const todoForm = ...
-const todoInput = ...
-const todoItemsList = ...
+const todoForm = document.querySelector('.todo-form')
+const todoInput = document.querySelector('.todo-input')
+const todoItemsList = document.querySelector('.todo-items')
 
 let todos = [];
 
-todoForm.addEventListener(..., function (....) {
-  ....preventDefault();
+todoForm.addEventListener('submit', function (param) {
+  param.preventDefault();
   addTodo(todoInput.value);
 });
 
@@ -15,13 +15,15 @@ function addTodo(item) {
     // buat object todo
     const todo = {
       id: Date.now(),
-      name: ...,
-      completed: ...
+      name: item,
+      completed: false
     };
+    
 
     // tambahkan object todo ke list todos
-    // tambahkan todo ke localstorage
-    addToLocalStorage(...);
+    todos.push(todo)
+    // tambahkan todos ke localstorage
+    addToLocalStorage(todos);
     // setelah todo ditambah ke localstorage maka inputan di bersihkan
     todoInput.value = "";
   }
@@ -29,17 +31,17 @@ function addTodo(item) {
 
 function renderTodos(todos) {
   // clear apapun yang ada dalam <ul> pada class class=todo-items
-  ...
+  todoItemsList.innerHTML=''
   //   looping todos untuk dirender ke <li>
-  todos.forEach(function (...) {
+  todos.forEach(function (item) {
     // cek apakah todo statusnya complete
-    const checked = 
+    const checked = item.completed ? 'checked':null
     // buat element <li>
-    const li = ...
+    const li = document.createElement('li')
     // tambahkan class item pada <li>
     li.setAttribute("class", "item");
     // tambahkan atribut data-key dengan id todo
-    li.setAttribute("data-key", ...);
+    li.setAttribute("data-key", item.id);
     
     // jika status todo, maka tambahkan class ke <li> yaitu => 'checked'
     // agar memdapat style coretan
@@ -52,10 +54,10 @@ function renderTodos(todos) {
     li.innerHTML = `
       <input type="checkbox" class="checkbox" ${checked}>
       ${item.name}
-      ...
+      <button class="delete-button">X</button>
     `;
     // masukkan atau append element li ke todo item list
-    ...
+    todoItemsList.append(li)
   });
 }
 
@@ -64,28 +66,30 @@ function addToLocalStorage(todos) {
   // ubah data ke string sebelum disimpan ke local storage
   localStorage.setItem("todos", JSON.stringify(todos));
   // panggil func renderTodos
-  ...
+  renderTodos(todos)
 }
 
 // func utk mengambil data dari localstorage
 function getFromLocalStorage() {
-  const reference = ...
+  const reference = localStorage.getItem('todos')
   if (reference) {
     // ubah data string dari localstorage ke array
     todos = JSON.parse(reference);
     renderTodos(todos);
   }
+  console.log(reference)
 }
+
 
 // toggle nilai complete dan tidak complete
 function toggle(id) {
   todos.forEach(function (item) {
     if (item.id == id) {
-      item.completed = ...;
+      item.completed = !item.completed;
     }
   });
   // tambahkan todos ke localStorage
-  addToLocalStorage(...);
+  addToLocalStorage(todos);
 }
 
 // hapus data dari array todos kemudian update localstorage 
@@ -93,7 +97,7 @@ function toggle(id) {
 function deleteTodo(id) {
   // filter data todos pada <li> sesuai id
   todos = todos.filter(function (item) {
-    return item.id != ...;
+    return item.id != id;
   });
   // update localStorage
   addToLocalStorage(todos);
